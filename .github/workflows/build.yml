@@ -287,7 +287,7 @@ jobs:
       - name: Zip Mac App
         run: |
           cd ${{github.workspace}}/app/build/macOS_Release
-          zip -r Sonic_Pi.app.zip Sonic\ Pi.app
+          zip -ry Sonic_Pi.app.zip Sonic\ Pi.app
         if: matrix.os == 'macos-latest'
 
       - name: Archive built binaries
