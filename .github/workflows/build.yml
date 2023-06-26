@@ -278,3 +278,16 @@ jobs:
           name: Logs_${{matrix.title}}_${{matrix.cc}}_${{matrix.arch}}_${{matrix.build_type}}
           path: |
             ~/.sonic-pi/log/*.log
+
+      - name: Zip Mac App
+        run: |
+          cd ${{github.workspace}}/app/build/gui/qt
+          zip -r Sonic_Pi.app.zip Sonic\ Pi.app
+        if: matrix.os == 'macos-latest'
+
+      - name: Archive built binaries
+        uses: actions/upload-artifact@v2
+        with:
+          name: Binaries_${{matrix.title}}_${{matrix.cc}}_${{matrix.arch}}_${{matrix.build_type}}
+          path: ${{github.workspace}}/app/build/gui/qt/Sonic_Pi.app.zip
+        if: matrix.os == 'macos-latest'
