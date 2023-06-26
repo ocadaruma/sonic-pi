@@ -196,6 +196,11 @@ jobs:
         run: ./mac-post-tau-prod-release.sh
         if: matrix.os == 'macos-latest'
 
+      - name: Make release (Mac)
+        working-directory: ${{github.workspace}}/app
+        run: ./mac-release.sh
+        if: matrix.os == 'macos-latest'
+
       - name: Build Tau Server (Windows)
         working-directory: ${{github.workspace}}/app
         shell: cmd
@@ -281,7 +286,7 @@ jobs:
 
       - name: Zip Mac App
         run: |
-          cd ${{github.workspace}}/app/build/gui/qt
+          cd ${{github.workspace}}/app/build/macOS_Release
           zip -r Sonic_Pi.app.zip Sonic\ Pi.app
         if: matrix.os == 'macos-latest'
 
@@ -289,5 +294,5 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: Binaries_${{matrix.title}}_${{matrix.cc}}_${{matrix.arch}}_${{matrix.build_type}}
-          path: ${{github.workspace}}/app/build/gui/qt/Sonic_Pi.app.zip
+          path: ${{github.workspace}}/app/build/macOS_Release/Sonic_Pi.app.zip
         if: matrix.os == 'macos-latest'
